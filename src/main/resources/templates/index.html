@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=“en” xmlns:th=“http://www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+
+
+
+<table border="1px" th:each="w:${WmsUsersList}">
+
+    <tr >
+        <td>用户ID</td>
+        <td th:text="${w.userId}"></td>
+    </tr>
+
+    <tr >
+        <td>用户名</td>
+        <td th:text="${w.userUsername}"></td>
+
+    </tr>
+    <tr >
+        <td>用户密码</td>
+        <td th:text="${w.userPassword}"></td>
+
+    </tr>
+
+</table>
+
+
+</body>
+</html>
