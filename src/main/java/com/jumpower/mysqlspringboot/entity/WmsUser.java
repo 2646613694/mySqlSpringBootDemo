@@ -30,4 +30,13 @@ public class WmsUser {
   public void setUserPassword(String userPassword) {
     this.userPassword = userPassword;
   }
+
+  public WmsUser() {
+  }
+
+  public WmsUser(Integer userId, String userUsername, String userPassword) {
+    this.userId = userId;
+    this.userUsername = userUsername;
+    this.userPassword = userPassword;
+  }
 }

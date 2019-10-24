@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Service
 public class WmsUserServiceImpl implements WmsUserService {
@@ -25,4 +26,18 @@ public class WmsUserServiceImpl implements WmsUserService {
         List<WmsUser> wmsUsers = wmsUserMapper.queryWmsUserMapperList(wmsUser);
         return wmsUsers;
     }
+
+
+    /**
+     * 通过流的方式往mybatis中添加新元素
+     * @param list 将要添加的新元素
+     * @return
+     */
+    @Override
+    public int insertWmsUserMapperList(List<WmsUser> list) {
+        list.stream().forEach(wmsUserMapper::insertWmsUserMapperList);
+        return 1;
+    }
+
+
 }

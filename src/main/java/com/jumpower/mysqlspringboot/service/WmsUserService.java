@@ -13,4 +13,11 @@ public interface WmsUserService {
      * @return
      */
     public List<WmsUser> queryWmsUserMapperList(WmsUser wmsUser);
+
+    /**
+     * 添加用户信息
+     * @param list
+     * @return
+     */
+    public int insertWmsUserMapperList(List<WmsUser>  list);
 }
