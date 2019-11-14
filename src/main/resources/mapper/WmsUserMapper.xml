@@ -11,6 +11,7 @@
                   USER_USERNAME as userUsername,
                   USER_PASSWORD as userPassword
                 FROM `wms_db`.`wms_user`
+
     </select>
 
     <!--添加用户信息-->

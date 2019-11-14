@@ -4,12 +4,14 @@ import com.jumpower.mysqlspringboot.entity.WmsUser;
 import com.jumpower.mysqlspringboot.service.WmsUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Controller
 public class WmsUserController {
@@ -19,15 +21,21 @@ public class WmsUserController {
 
     /**
      * 返回首页
-     * @param wmsUser
      * @param model
      * @return
      */
     @RequestMapping("/index")
-    public String index(WmsUser wmsUser, Model model){
-        List<WmsUser> wmsUsers = wmsUserService.queryWmsUserMapperList(wmsUser);
-        model.addAttribute("WmsUsersList",wmsUsers);
+    public String index( Model model, HttpSession session){
+
+
+
         return "index";
+    }
+    @PostMapping("/wmsUserList")
+    @ResponseBody
+    public Object xxx(WmsUser wmsUser){
+        List<WmsUser>  wmsUsers = wmsUserService.queryWmsUserMapperList(wmsUser);
+        return wmsUsers;
     }
 
     /**
