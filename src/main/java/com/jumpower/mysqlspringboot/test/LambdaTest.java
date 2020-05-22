@@ -4,6 +4,7 @@ import org.apache.commons.collections.MapUtils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -31,7 +32,10 @@ public class LambdaTest {
         //quChong(list);
         //求和
 
-        System.out.println("总数的和是");
+        //System.out.println("总数的和是");
+
+
+
 
     }
 
@@ -64,5 +68,26 @@ public class LambdaTest {
         return qiuHeResult;
     }
 
+    /**
+     * 取出重复自定义
+     *
+     * @return
+     */
+    public static String quChongDIY(){
+        String str1="R0000000002,R0000000003,R0000000005";
+        String str2="R0000000003";
+        StringBuffer sb = new StringBuffer();
+        //根据逗号拆分str1得出数组xxx
+        String[] split = str1.split(",");
+        for(int i = 0;i < split.length; i++) {
+            //如果数组split(也就是str1的变形)不包含str2的字符串，就取出来
+            if(!split[i].contains(str2)){
+                sb.append(split[i]+",");
+            }
+        }
+        //输出把最后一个逗号给滚掉
+        System.out.println(sb.toString().substring(0,sb.toString().length()-1));
+        return sb.toString().substring(0,sb.toString().length()-1);
+    }
 
 }

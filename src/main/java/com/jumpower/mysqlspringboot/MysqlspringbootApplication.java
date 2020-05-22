@@ -31,6 +31,7 @@ public class MysqlspringbootApplication {
                 "  　　　　　┗┻┛　┗┻┛\n" +
                 " \n" +
                 "  ━━━━━━感觉萌萌哒━━━━━━");
+        /*傻逼*/
     }
 
 }

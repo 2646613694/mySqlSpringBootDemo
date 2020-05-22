@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="/static/dist/bootstrap.css">
+    <link rel="stylesheet" href="/static/dist/bootstrap.min.css">
 
     <link rel="stylesheet" href="/static/dist/bootstrap-table.min.css">
 </head>
@@ -35,61 +35,111 @@
 </table>-->
 
 <script src="/static/jquery/jquery.js"></script>
-<script src="/static/jquery/bootstrap.js"></script>
+
+<script src="/static/jquery/bootstrap.min.js"></script>
 <script src="/static/dist/bootstrap-table.min.js"></script>
 <script src="/static/dist/locale/bootstrap-table-zh-CN.min.js"></script>
 
 <script type="text/javascript">
-    $('#table-request').bootstrapTable({
-        url:'/wmsUserList',             //请求后台的URL（*）
-        method: 'post',                      //请求方式（*）
-        toolbar: '#toolbar',                //工具按钮用哪个容器
+    var $table = $("#table-request");
+    $table.bootstrapTable({
+        url:  "static/list.json",
+        dataType: "json",
+        method: 'GET',
+        contentType: "application/x-www-form-urlencoded",
+
+        // toolbar: '#toolbar',                //工具按钮用哪个容器
         striped: true,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         pagination: true,                   //是否显示分页（*）
-        sortable: true,                     //是否启用排序
-        sortOrder: "asc",                   //排序方式
-        queryParams: 'queryParams',         //传递参数（*）
-        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        sortable: false,                     //是否启用排序
+        sortOrder: "desc",                   //排序方式
+
+        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber:1,                       //初始化加载第一页，默认第一页
         pageSize: 10,                       //每页的记录行数（*）
-        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-        smartDisplay:false,
-        search: false,                      //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-        strictSearch: true,
-        showColumns: false,                 //是否显示所有的列
-        showRefresh: false,                 //是否显示刷新按钮
+        pageList:[5,10,20,30],//分页步进值       //可供选择的每页的行数（*）
+        // search:true,               //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        // strictSearch: true,
+        oolbarAlign:'right',//工具栏对齐方式
+        buttonsAlign:'right',//按钮对齐方式
+        // showColumns: true,                  //是否显示所有的列
+        // showRefresh: true,                  //是否显示刷新按钮
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
-        height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
-        showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
+        //height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+        // showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
-        detailView: false,                   //是否显示父子表
-        //得到查询的参数
-                         queryParams : function (params) {
-                             //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
-                             var temp = {
-                                    rows: params.limit,                         //页面大小
-                                    page: (params.offset / params.limit) + 1,   //页码
-                                    sort: params.sort,      //排序列名
-                                    sortOrder: params.order //排位命令（desc，asc）
-                             };
-                             return temp;
-                         },
-        columns: [
+        // detailView: false,                   //是否显示父子表onEditableSave
+        // singleSelect: false,
+        // striped: true, //是否显示行间隔色
+        // cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        // sortable: true, //是否启用排序
+        // pagination: true,   //显示分页按钮
+        // sortName:"starttime",
+        // sortOrder:"desc", //默认排序
+        // pageNumber: 1, //初始化加载第一页，默认第一页
+        // pageSize: 10,   //默认显示的每页个数
+        // showRefresh: true,                  //是否显示刷新按钮
+        // showPaginationSwitch: true,       //是否显示选择分页数按钮
+        // queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber
+        queryParams:function(params){
+            var temp = {
+                rows: params.limit,                         //页面大小
+                                         page: (params.offset / params.limit) + 1,   //页码
+                                         sort: params.sort,      //排序列名
+                                         sortOrder: params.order //排位命令（desc，asc）
+            }
+            return temp;
+        },
+        responseHandler:function(res){
+            //动态渲染表格之前获取有后台传递的数据时,用于获取出除去本身渲染所需的数据的额外参数
+            //详见此函数参数的api
+            return res;
+        },
+        // search: true, //显示搜索框（客户端搜索）
+        //sidePagination: "server", //服务端处理分页
+        // showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        // detailView: false,                   //是否显示父子表
+        columns: [{
+            field:'userId',
+            title:'ID',
+            align : 'center',
+            width :  100,
+            valign : 'middle'
+
+        },{
+            field:'userUsername',
+            title:'用户名',
+            align : 'center',
+            width :  120 ,
+            valign : 'middle'
+
+        },
             {
-                field:'userId',
-                title:'ID',
-            },{
-                field:'userUsername',
-                title:'用户名',
-            },{
                 field:'userPassword',
                 title:'密码',
-            }
-        ],                     //列设置
+                align : 'center',
+                width :  120 ,
+                valign : 'middle'
+
+            }],
+
+        onLoadSuccess: function(){  //加载成功时执行
+            //alert("加载数据成功");
+        },
+        onLoadError: function(){  //加载失败时执行
+            alert("加载数据失败");
+        }
     });
+
+
+
+
+
+
 </script>
 </body>
 </html>

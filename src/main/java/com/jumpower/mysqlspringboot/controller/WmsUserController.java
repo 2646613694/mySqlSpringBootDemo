@@ -4,10 +4,7 @@ import com.jumpower.mysqlspringboot.entity.WmsUser;
 import com.jumpower.mysqlspringboot.service.WmsUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -53,6 +50,17 @@ public class WmsUserController {
        // list.add(new WmsUser(888,"小名","123456"));
         wmsUserService.insertWmsUserMapperList(list);
         return "index";
+    }
+
+    /**
+     * 用于测试
+     * @param XX
+     * @return
+     */
+    @GetMapping(value = "/aoligei")
+    public String aoligei( @RequestParam(value = "XX",required = false) List<String> XX){
+        System.out.println(XX.get(0));
+        return null;
     }
 
 }
